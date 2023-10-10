@@ -33,49 +33,49 @@ export default {
 
     const queueEmbed = await interaction.fetchReply();
 
-    try {
-      await queueEmbed.react("⬅️");
-      await queueEmbed.react("⏹");
-      await queueEmbed.react("➡️");
-    } catch (error: any) {
-      console.error(error);
-      (interaction.channel as TextChannel).send(error.message).catch(console.error);
-    }
+    // try {
+    //   await queueEmbed.react("⬅️");
+    //   await queueEmbed.react("⏹");
+    //   await queueEmbed.react("➡️");
+    // } catch (error: any) {
+    //   console.error(error);
+    //   (interaction.channel as TextChannel).send(error.message).catch(console.error);
+    // }
 
-    const filter = (reaction: MessageReaction, user: User) =>
-      ["⬅️", "⏹", "➡️"].includes(reaction.emoji.name!) && interaction.user.id === user.id;
+    //const filter = (reaction: MessageReaction, user: User) =>
+     // ["⬅️", "⏹", "➡️"].includes(reaction.emoji.name!) && interaction.user.id === user.id;
 
-    const collector = queueEmbed.createReactionCollector({ filter, time: 60000 });
+    //const collector = queueEmbed.createReactionCollector({ filter, time: 60000 });
 
-    collector.on("collect", async (reaction, user) => {
-      try {
-        if (reaction.emoji.name === "➡️") {
-          if (currentPage < embeds.length - 1) {
-            currentPage++;
-            queueEmbed.edit({
-              content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }),
-              embeds: [embeds[currentPage]]
-            });
-          }
-        } else if (reaction.emoji.name === "⬅️") {
-          if (currentPage !== 0) {
-            --currentPage;
-            queueEmbed.edit({
-              content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }),
-              embeds: [embeds[currentPage]]
-            });
-          }
-        } else {
-          collector.stop();
-          reaction.message.reactions.removeAll();
-        }
-        await reaction.users.remove(interaction.user.id);
-      } catch (error: any) {
-        console.error(error);
-        return (interaction.channel as TextChannel).send(error.message).catch(console.error);
-      }
-    });
-  }
+  //   collector.on("collect", async (reaction, user) => {
+  //     try {
+  //       if (reaction.emoji.name === "➡️") {
+  //         if (currentPage < embeds.length - 1) {
+  //           currentPage++;
+  //           queueEmbed.edit({
+  //             content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }),
+  //             embeds: [embeds[currentPage]]
+  //           });
+  //         }
+  //       } else if (reaction.emoji.name === "⬅️") {
+  //         if (currentPage !== 0) {
+  //           --currentPage;
+  //           queueEmbed.edit({
+  //             content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }),
+  //             embeds: [embeds[currentPage]]
+  //           });
+  //         }
+  //       } else {
+  //         collector.stop();
+  //         reaction.message.reactions.removeAll();
+  //       }
+  //       await reaction.users.remove(interaction.user.id);
+  //     } catch (error: any) {
+  //       console.error(error);
+  //       return (interaction.channel as TextChannel).send(error.message).catch(console.error);
+  //     }
+  //   });
+   }
 };
 
 function generateQueueEmbed(interaction: CommandInteraction, songs: Song[]) {
