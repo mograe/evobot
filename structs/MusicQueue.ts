@@ -55,14 +55,15 @@ export class MusicQueue {
       Reflect.get(newState, "networking")?.on("stateChange", networkStateChangeHandler);
 
       if (newState.status === VoiceConnectionStatus.Disconnected) {
-        if (newState.reason === VoiceConnectionDisconnectReason.WebSocketClose && newState.closeCode === 4014) {
-          try {
-            this.stop();
-          } catch (e) {
-            console.log(e);
-            this.stop();
-          }
-        } else if (this.connection.rejoinAttempts < 5) {
+        // if (newState.reason === VoiceConnectionDisconnectReason.WebSocketClose && newState.closeCode === 4014) {
+        //   try {
+        //     this.stop();
+        //   } catch (e) {
+        //     console.log(e);
+        //     this.stop();
+        //   }
+        // } else 
+        if (this.connection.rejoinAttempts < 5) {
           await wait((this.connection.rejoinAttempts + 1) * 5_000);
           this.connection.rejoin();
         } else {

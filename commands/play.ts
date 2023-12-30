@@ -16,7 +16,6 @@ export default {
     PermissionsBitField.Flags.Connect,
     PermissionsBitField.Flags.Speak,
     PermissionsBitField.Flags.AddReactions,
-    PermissionsBitField.Flags.ManageMessages
   ],
   async execute(interaction: ChatInputCommandInteraction, input: string) {
     let argSongName = interaction.options.getString("song");
