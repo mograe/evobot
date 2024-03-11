@@ -67,6 +67,7 @@ export class MusicQueue {
           await wait((this.connection.rejoinAttempts + 1) * 5_000);
           this.connection.rejoin();
         } else {
+          this.stop();
           this.connection.destroy();
         }
       } else if (
